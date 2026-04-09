@@ -32,12 +32,12 @@ Setelah semua URL selesai diproses, ekstensi otomatis mengambil screenshot tiap 
 
 ## Persyaratan
 
-| Kebutuhan      | Keterangan                                                                               |
-| -------------- | ---------------------------------------------------------------------------------------- |
-| Browser        | Google Chrome (atau browser berbasis Chromium seperti Edge, Brave)                       |
-| Akun Instagram | Sudah login di tab browser yang sama                                                     |
-| Akun TikTok    | Sudah login di tab browser yang sama                                                     |
-| File SheetJS   | `xlsx.full.min.js` — diperlukan untuk fitur import Excel (lihat [Instalasi](#instalasi)) |
+| Kebutuhan      | Keterangan                                                         |
+| -------------- | ------------------------------------------------------------------ |
+| Browser        | Google Chrome (atau browser berbasis Chromium seperti Edge, Brave) |
+| Akun Instagram | Sudah login di tab browser yang sama                               |
+| Akun TikTok    | Sudah login di tab browser yang sama                               |
+| File SheetJS   | `xlsx.full.min.js` — diperlukan untuk fitur import Excel           |
 
 > **Penting:** Pastikan kamu sudah login ke Instagram dan TikTok di browser sebelum menjalankan automasi. Jika belum login, ekstensi akan mendeteksi halaman login dan mencatat URL tersebut sebagai error.
 
