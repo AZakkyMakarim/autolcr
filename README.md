@@ -27,6 +27,7 @@ Setelah semua URL selesai diproses, ekstensi otomatis mengambil screenshot tiap 
 6. [Screenshot Otomatis](#screenshot-otomatis)
 7. [Menghentikan Automasi](#menghentikan-automasi)
 8. [Troubleshooting](#troubleshooting)
+9. [Catatan Branch (April 2026)](#catatan-branch-april-2026)
 
 ---
 
@@ -297,6 +298,19 @@ Downloads/
 
 > Folder `auto-lcr-screenshots` akan dibuat otomatis di dalam folder unduhan default Chrome kamu.
 
+### Detail Flow Screenshot Terbaru
+
+Untuk branch saat ini, flow screenshot sudah diperbarui sebagai berikut:
+
+1. Aksi Like -> Comment -> Repost dijalankan lebih dulu.
+2. Sebelum screenshot final, tab di-refresh 1x lalu menunggu 3 detik.
+3. TikTok dipertahankan pada flow yang sudah stabil (tanpa langkah scroll tambahan).
+4. Instagram menggunakan emulasi mobile setara Device Toolbar (profil iPhone 12 Pro).
+5. Popup/overlay Instagram yang menghalangi akan dicoba ditutup otomatis.
+6. Hasil screenshot Instagram di-crop ke area konten post untuk menghilangkan area kosong di samping.
+
+---
+
 ---
 
 ## Menghentikan Automasi
@@ -366,6 +380,40 @@ Klik tombol **■ Stop** untuk menghentikan automasi.
 
 1. Buka `chrome://settings/content/automaticDownloads`
 2. Tambahkan ekstensi ini ke daftar yang diizinkan, atau aktifkan **Izinkan semua situs menyimpan file secara otomatis**.
+
+---
+
+## Catatan Branch (April 2026)
+
+Bagian ini merangkum perubahan teknis penting pada branch aktif.
+
+### Perubahan Utama
+
+- **Instagram screenshot mode**
+  - Menggunakan emulasi iPhone 12 Pro (bukan sekadar resize window).
+  - Emulasi diterapkan sebelum refresh final.
+- **Refresh before capture**
+  - Sebelum mengambil screenshot, halaman direfresh 1x lalu delay 3 detik.
+- **Overlay handling (Instagram)**
+  - Script mencoba menutup tombol/overlay seperti `Close`, `Not now`, `Batal`, dan variasinya.
+- **Auto-crop screenshot Instagram**
+  - Screenshot di-trim ke lebar konten post (`article`) agar area blank di samping hilang/minimal.
+- **TikTok flow dikunci**
+  - Tidak ada perubahan behavior tambahan pada TikTok selain flow stabil yang sudah disepakati.
+
+### Dampak Operasional
+
+- Manifest sekarang memerlukan permission tambahan: `debugger`.
+- Setelah update kode branch ini, **reload extension** di `chrome://extensions` wajib dilakukan sebelum testing ulang.
+- Jika tab target sedang dibuka dengan DevTools debugger aktif, emulasi bisa gagal attach.
+
+### Checklist Verifikasi Cepat
+
+1. Reload extension dari `chrome://extensions`.
+2. Jalankan 1 URL Instagram uji.
+3. Pastikan screenshot tidak memiliki area kosong besar di sisi kanan.
+4. Pastikan area ikon like/comment/repost terlihat.
+5. Jalankan 1 URL TikTok uji untuk memastikan behavior tetap sama.
 
 ---
 
