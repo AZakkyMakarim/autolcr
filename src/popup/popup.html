@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auto LCR</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="header">
+    <span class="logo">⚡</span>
+    <h1>Auto LCR</h1>
+  </div>
+
+  <div class="scroll-area">
+
+    <div class="section">
+      <label>Import dari Excel <span class="hint">(.xlsx)</span></label>
+      <div class="excel-row">
+        <input type="file" id="excel-upload" accept=".xlsx" />
+        <label for="excel-upload" class="btn-upload">📂 Pilih File .xlsx</label>
+        <span id="excel-filename" class="excel-filename">Belum ada file</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <label for="url-list">URL List <span class="hint">(one per line, or import from Excel)</span></label>
+      <textarea
+        id="url-list"
+        placeholder="https://www.instagram.com/p/ABC123/&#10;https://www.tiktok.com/@user/video/123456&#10;https://www.instagram.com/reel/XYZ789/"
+        rows="5"
+      ></textarea>
+    </div>
+
+    <div class="section">
+      <label for="comment-pool">Comment Pool <span class="hint">(one per line, picked randomly)</span></label>
+      <textarea
+        id="comment-pool"
+        placeholder="Great post!&#10;Love this! ❤️&#10;Amazing content 🔥&#10;Keep it up!"
+        rows="3"
+      ></textarea>
+      <div id="comment-error" class="error hidden">Comment pool cannot be empty.</div>
+    </div>
+
+    <div class="section section-report-info">
+      <label>Info Laporan</label>
+      <div class="report-info-grid">
+        <div class="report-info-field">
+          <span class="field-label">Nama</span>
+          <input type="text" id="input-nama" placeholder="Nama operator" />
+        </div>
+        <div class="report-info-field">
+          <span class="field-label">Akun IG</span>
+          <input type="text" id="input-ig-account" placeholder="@namaakun" />
+        </div>
+        <div class="report-info-field">
+          <span class="field-label">Akun TT</span>
+          <input type="text" id="input-tt-account" placeholder="@namaakun" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <button id="run-btn" class="btn-primary">▶ Run</button>
+    <button id="stop-btn" class="btn-danger hidden">■ Stop</button>
+  </div>
+
+  <div class="log-and-report">
+
+    <div class="log-section">
+      <div class="log-header">
+        <span>Status Log</span>
+        <button id="clear-log" class="btn-ghost">Clear</button>
+      </div>
+      <div id="status-log"></div>
+    </div>
+
+    <div id="report-section" class="report-section hidden">
+      <div class="log-header">
+        <span>Laporan</span>
+        <button id="copy-report-btn" class="btn-ghost">Copy</button>
+      </div>
+      <pre id="report-output"></pre>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <span>© <span id="current-year"></span> AZAMA. All rights reserved.</span>
+  </footer>
+
+  <script src="../../lib/xlsx.full.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
