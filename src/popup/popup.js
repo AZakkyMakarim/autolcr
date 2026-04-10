@@ -119,14 +119,20 @@ function applyExcelData(rows) {
 }
 
 // ─── Report Generation ────────────────────────────────────────────────────────
-function renderReport() {
-  if (!excelRows.length) return;
+function renderReport(processed) {
   const nama      = namaEl.value.trim();
   const igAccount = igAccountEl.value.trim();
   const ttAccount = ttAccountEl.value.trim();
-  const lines     = excelRows.map(r => `${nama} / ${r.noPosting} / ${r.tanggalPosting}`);
-  const report    = lines.join('\n') + `\n\nIG: ${igAccount}\nTT: ${ttAccount}`;
-  reportOutputEl.textContent = report;
+
+  let body = '';
+  if (excelRows.length) {
+    body = excelRows.map(r => `${nama} / ${r.noPosting} / ${r.tanggalPosting}`).join('\n') + '\n\n';
+  } else {
+    body = `${nama ? nama + '\n' : ''}Selesai: ${processed ?? 0} URL diproses\n\n`;
+  }
+  body += `IG: ${igAccount}\nTT: ${ttAccount}`;
+
+  reportOutputEl.textContent = body;
   reportSectionEl.classList.remove('hidden');
 }
 
@@ -176,7 +182,7 @@ function renderEvent({ event, url, detail, failedUrls, _ts }) {
       });
       setRunning(false);
       stopBtn.disabled = false;
-      renderReport();
+      renderReport(detail);
       break;
     }
     case 'stopped':

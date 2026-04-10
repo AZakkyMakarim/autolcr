@@ -95,9 +95,13 @@ function waitForTabLoad(tabId) {
 
 function waitForTabActive(tabId) {
   return new Promise((resolve) => {
-    chrome.tabs.update(tabId, { active: true }, () => {
-      // Give the browser a moment to actually bring the tab to front
-      setTimeout(resolve, 600);
+    chrome.tabs.get(tabId, (tab) => {
+      // Focus the window first, then make the tab active
+      chrome.windows.update(tab.windowId, { focused: true }, () => {
+        chrome.tabs.update(tabId, { active: true }, () => {
+          setTimeout(resolve, 600);
+        });
+      });
     });
   });
 }
@@ -204,8 +208,9 @@ async function runAutomation(urls, commentPool) {
 
     let tab;
     try {
-      // 1. Open tab — must be active so TikTok/Instagram fully render
-      tab = await chrome.tabs.create({ url, active: true });
+      // 1. Open in a new maximized window — keeps automation separate from user's current tabs
+      const win = await chrome.windows.create({ url, type: 'normal', focused: true, state: 'maximized' });
+      tab = win.tabs[0];
 
       // 2. Wait for page load
       await waitForTabLoad(tab.id);
@@ -254,8 +259,8 @@ async function runAutomation(urls, commentPool) {
       failedUrls.push(url);
       notifyPopup({ event: 'url_error', url, detail: err.message });
     } finally {
-      if (tab?.id) {
-        chrome.tabs.remove(tab.id).catch(() => {});
+      if (tab?.windowId) {
+        chrome.windows.remove(tab.windowId).catch(() => {});
       }
     }
 
