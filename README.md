@@ -1,4 +1,4 @@
-# Auto LCR — Panduan Penggunaan
+# Auto LCR — Tutorial Penggunaan
 
 **Auto LCR** adalah ekstensi browser Chrome yang mengotomatiskan tiga aksi sekaligus pada konten Instagram dan TikTok:
 
